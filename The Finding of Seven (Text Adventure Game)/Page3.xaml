@@ -1,0 +1,112 @@
+﻿<Page x:Class="The_Finding_of_Seven__Text_Adventure_Game_.Page3"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:The_Finding_of_Seven__Text_Adventure_Game_"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1200"
+      Title="Page3"
+      Loaded="Page_Loaded">
+
+    <Grid Name="background">
+        <Grid.Background>
+            <ImageBrush ImageSource="/merchantBackground.png"/>
+        </Grid.Background>
+        
+        <Label x:Name="InventoryLabel" Content="Inventory" HorizontalAlignment="Left" Margin="895,123,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30" RenderTransformOrigin="0.429,1.088"/>
+        <ListBox x:Name="shopItemsList" Margin="10,195,760,273" Background="{x:Null}" Foreground="White" FontSize="18">
+            <ListBoxItem x:Name="steelSword" Content="Steel Sword(10 Gold)" MouseEnter="steelSword_MouseEnter"/>
+            <ListBoxItem x:Name="redGem" Content="Red Gem (40 Gold)" MouseEnter="ListBoxItem_MouseEnter"/>
+            <ListBoxItem x:Name="healingPotion" Content="Healing Potion (20 Gold)" MouseEnter="healingPotion_MouseEnter"/>
+            <ListBoxItem x:Name="impetumPotion" Content="Impetum Potion (20 Gold)" MouseEnter="impetumPotion_MouseEnter"/>
+            <ListBoxItem x:Name="woodenShield" Content="Wooden Shield (20 Gold)" MouseEnter="woodenShield_MouseEnter"/>
+        </ListBox>
+        <Label x:Name="shopLabel" Content="Shop Items" HorizontalAlignment="Left" Margin="172,123,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
+        <ListBox x:Name="inventoryItems" Margin="734,195,10,273" Background="{x:Null}" Foreground="#FFFFFDFD" FontSize="18"/>
+        <Button x:Name="addItemBtn" Content="Add Item" HorizontalAlignment="Left" Margin="204,395,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Padding="10" Click="addItemBtn_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#40513B"></Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#609966"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="exitShopBtn" Content="Exit Merchant Shop" HorizontalAlignment="Center" Margin="0,537,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Padding="10" Click="exitShopBtn_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#40513B"></Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#609966"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Border Name="border" BorderBrush="#FF654321" BorderThickness="4px" Margin="479,218,486,273" >
+            <Grid Name="displayBox" Height="Auto" Background="Black" >
+                <TextBlock Name="display" FontSize="14" Background="Black" Foreground="White" Padding="20" TextWrapping="Wrap" Margin="0,0,-1,0"></TextBlock>
+            </Grid>
+        </Border>
+        <Button x:Name="removeItemBtn" Content="Remove Item" HorizontalAlignment="Left" Margin="903,395,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Padding="10" Click="removeItemBtn_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#40513B"></Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#609966"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+    </Grid>
+</Page>

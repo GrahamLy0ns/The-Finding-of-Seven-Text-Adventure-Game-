@@ -1,0 +1,25 @@
+﻿<Page x:Class="The_Finding_of_Seven__Text_Adventure_Game_.Intro"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:The_Finding_of_Seven__Text_Adventure_Game_"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1200"
+      Title="Intro"
+      Loaded="Page_Loaded"
+      >
+
+    <Grid Name="background">
+
+        <Border BorderBrush="#FF654321" BorderThickness="4px" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="display" TextWrapping="Wrap" Height="289" Width="464" Background="Black" Foreground="White" Padding="20" FontSize="14"/>
+        </Border>
+        <TextBlock x:Name="title" HorizontalAlignment="Center" Margin="0,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Wide Latin" FontSize="20" Width="472" TextAlignment="Center" Height="29"/>
+
+
+
+
+
+    </Grid>
+</Page>
