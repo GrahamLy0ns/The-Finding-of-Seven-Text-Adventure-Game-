@@ -181,26 +181,32 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                     if (item.ToString().Contains("Red Gem"))
                     {
                         window.inventoryItems.Add("Red Gem");
+                        window.inventoryListBox.Items.Add("Red Gem");
                     }
                     else if (item.ToString().Contains("Steel Sword"))
                     {
                         window.inventoryItems.Add("Steel Sword");
+                        window.inventoryListBox.Items.Add("Steel Sword");
                     }
                     else if (item.ToString().Contains("Healing Gem"))
                     {
-                        window.inventoryItems.Add("Steel Sword");
+                        window.inventoryItems.Add("Healing Gem");
+                        window.inventoryListBox.Items.Add("Healing Gem");
                     }
                     else if (item.ToString().Contains("Impetum Potion"))
                     {
                         window.inventoryItems.Add("Impetum Potion");
+                        window.inventoryListBox.Items.Add("Impetum Potion");
                     }
                     else if (item.ToString().Contains("Wooden Shield"))
                     {
                         window.inventoryItems.Add("Wooden Shield");
+                        window.inventoryListBox.Items.Add("Wooden Shield");
                     }
                     else
                     {
                         window.inventoryItems.Add(item.ToString());
+                        window.inventoryListBox.Items.Add(item);
                     }
                     
                 }

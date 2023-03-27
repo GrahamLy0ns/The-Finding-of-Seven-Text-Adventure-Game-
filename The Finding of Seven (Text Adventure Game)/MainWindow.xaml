@@ -47,7 +47,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <StackPanel x:Name="MainNavigation" Orientation="Horizontal" Margin="0,0,0,567" HorizontalAlignment="Center" Width="1007">
+        <StackPanel x:Name="MainNavigation" Orientation="Horizontal" Margin="0,0,0,567" HorizontalAlignment="Center" Width="1139">
             <Button x:Name="hideNav" Content="Hide Navigation" Foreground="White" FontSize="18" Margin="20, 0, 20, 0" Padding="20" Click="hideNav_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -74,7 +74,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="pause" Content="Pause" Foreground="White" FontSize="18" Padding="20, 0, 20, 0" Click="pause_Click">
+            <Button x:Name="pause" Content="Pause" Foreground="White" FontSize="18" Padding="20" Click="pause_Click" Margin="0, 0, 20, 0">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#40513B"></Setter>
@@ -99,6 +99,32 @@
                         <Setter Property="CornerRadius" Value="10"/>
                     </Style>
                 </Button.Resources>
+            </Button>
+            <Button x:Name="showInventoryBtn" Content="Show Inventory" Foreground="White" FontSize="18" Padding="20" Click="showInventoryBtn_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#40513B"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#609966"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Border Background="#40513B" BorderThickness="2" CornerRadius="10" HorizontalAlignment="Center" Margin="20, 0, 0, 0">
                 <Border Background="#40513B" BorderThickness="2" CornerRadius="10" >
@@ -339,6 +365,8 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <ListBox x:Name="inventoryListBox" Margin="30,171,870,264" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}" FontSize="18"/>
+        <Label x:Name="inventoryLabel" Content="Inventory Items" HorizontalAlignment="Left" Margin="107,129,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
 
 
 

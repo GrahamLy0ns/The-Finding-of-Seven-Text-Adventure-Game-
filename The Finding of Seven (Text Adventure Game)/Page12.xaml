@@ -1,4 +1,4 @@
-﻿<Page x:Class="The_Finding_of_Seven__Text_Adventure_Game_.Page10"
+﻿<Page x:Class="The_Finding_of_Seven__Text_Adventure_Game_.Page12"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,12 +6,12 @@
       xmlns:local="clr-namespace:The_Finding_of_Seven__Text_Adventure_Game_"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1200"
-      Title="Page10"
+      Title="Page12"
       Loaded="Page_Loaded">
 
-    <Grid Name="background">
+    <Grid x:Name="background">
         <Grid.Background>
-            <ImageBrush ImageSource="/bridge.png"/>
+            <ImageBrush ImageSource="/darkCastle.png"/>
         </Grid.Background>
         <Border Name="border" BorderBrush="#FF654321" BorderThickness="4px" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ScrollViewer HorizontalAlignment="Center" VerticalAlignment="Center" Name="scroll" Height="289" VerticalScrollBarVisibility="Hidden">
@@ -76,61 +76,6 @@
             </Button.Resources>
             <TextBlock x:Name="btn2Display" Foreground="#FFFFFEFE" FontSize="20" Width="177" TextWrapping="Wrap" TextAlignment="Center" Padding="10"></TextBlock>
         </Button>
-        <TextBox x:Name="riddle" HorizontalAlignment="Left" Margin="493,517,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" FontSize="20" Foreground="White" Height="51" GotFocus="riddle_GotFocus" Background="{x:Null}"/>
-        <Button x:Name="submitBtn" Content="Submit" HorizontalAlignment="Left" Margin="554,572,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.351" Width="122" FontSize="20" Foreground="#FFFFFBFB" Click="submitBtn_Click">
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Background" Value="#40513B"></Setter>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="{TemplateBinding Background}">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#609966"></Setter>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <TextBox x:Name="dreamTextBox" HorizontalAlignment="Left" Margin="674,528,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="342" FontSize="20" Foreground="White" Height="52" GotFocus="riddle_GotFocus" Background="{x:Null}"/>
-        <Button x:Name="submitBtnDream" Content="Submit" HorizontalAlignment="Left" Margin="784,585,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.351" Width="122" FontSize="20" Foreground="#FFFFFBFB" Click="submitBtnDream_Click">
-            <Button.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Background" Value="#40513B"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="{TemplateBinding Background}">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#609966"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Label x:Name="dreamLabel" Content="" HorizontalAlignment="Left" Margin="626,489,0,0" VerticalAlignment="Top" Width="438" Foreground="White" FontSize="18" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Page>

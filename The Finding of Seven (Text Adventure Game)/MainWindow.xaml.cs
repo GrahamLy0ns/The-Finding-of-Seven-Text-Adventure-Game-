@@ -39,6 +39,9 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //hiding inventory box
+            inventoryListBox.Visibility = Visibility.Collapsed;
+            inventoryLabel.Visibility = Visibility.Collapsed;
             //hiding reveal nav btn
             revealNavigation.Visibility = Visibility.Hidden;
             soundControlBtns.Visibility = Visibility.Hidden;
@@ -146,7 +149,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             }
       
             
-            MainFrame.Navigate(new Uri("Page10.xaml", UriKind.Relative));
+            MainFrame.Navigate(new Uri("Page11.xaml", UriKind.Relative));
 
             startGameButton.Visibility = Visibility.Hidden;
 
@@ -207,7 +210,12 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 }
                 else if (MainFrame.Content.ToString().Contains("Page10"))
                 {
-                    path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 69 For the Fans.mp3";
+                    path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 28 Premonition.mp3";
+
+                }
+                else if (MainFrame.Content.ToString().Contains("Page11"))
+                {
+                    path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 22 Snowdin Town.mp3";
                 }
                 else
                 {
@@ -216,7 +224,6 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 }
             }
            
-            
             player.LoadedBehavior = MediaState.Manual;
             player.Source = new Uri(path, UriKind.RelativeOrAbsolute);
             player.Play();
@@ -247,6 +254,9 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         {
             MainNavigation.Visibility = Visibility.Hidden;
             revealNavigation.Visibility = Visibility.Visible;
+            soundControlBtns.Visibility = Visibility.Hidden;
+            inventoryLabel.Visibility = Visibility.Collapsed;
+            inventoryListBox.Visibility = Visibility.Collapsed;
         }
 
         private void revealNavigation_Click(object sender, RoutedEventArgs e)
@@ -286,6 +296,23 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         private void decreaseVolume_Click(object sender, RoutedEventArgs e)
         {
             player.Volume -= 0.1;
+        }
+
+        private void showInventoryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //checking state of inventory box
+            if (inventoryListBox.Visibility == Visibility.Visible)
+            {
+                inventoryLabel.Visibility = Visibility.Collapsed;
+                inventoryListBox.Visibility = Visibility.Collapsed;
+            }
+            else 
+            {
+                inventoryLabel.Visibility = Visibility.Visible;
+                inventoryListBox.Visibility = Visibility.Visible;
+            }
+            
+
         }
     }
 }
