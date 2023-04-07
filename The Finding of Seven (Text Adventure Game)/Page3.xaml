@@ -15,13 +15,7 @@
         </Grid.Background>
         
         <Label x:Name="InventoryLabel" Content="Inventory" HorizontalAlignment="Left" Margin="895,123,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30" RenderTransformOrigin="0.429,1.088"/>
-        <ListBox x:Name="shopItemsList" Margin="10,195,760,273" Background="{x:Null}" Foreground="White" FontSize="18">
-            <ListBoxItem x:Name="steelSword" Content="Steel Sword(10 Gold)" MouseEnter="steelSword_MouseEnter"/>
-            <ListBoxItem x:Name="redGem" Content="Red Gem (40 Gold)" MouseEnter="ListBoxItem_MouseEnter"/>
-            <ListBoxItem x:Name="healingPotion" Content="Healing Potion (20 Gold)" MouseEnter="healingPotion_MouseEnter"/>
-            <ListBoxItem x:Name="impetumPotion" Content="Impetum Potion (20 Gold)" MouseEnter="impetumPotion_MouseEnter"/>
-            <ListBoxItem x:Name="woodenShield" Content="Wooden Shield (20 Gold)" MouseEnter="woodenShield_MouseEnter"/>
-        </ListBox>
+        <ListBox x:Name="shopItemsList" Margin="10,195,760,273" Background="{x:Null}" Foreground="White" FontSize="18"/>
         <Label x:Name="shopLabel" Content="Shop Items" HorizontalAlignment="Left" Margin="172,123,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
         <ListBox x:Name="inventoryItems" Margin="734,195,10,273" Background="{x:Null}" Foreground="#FFFFFDFD" FontSize="18"/>
         <Button x:Name="addItemBtn" Content="Add Item" HorizontalAlignment="Left" Margin="204,395,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Padding="10" Click="addItemBtn_Click">

@@ -32,13 +32,24 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         public bool btnClick = false;
         private Storyboard storyboard = new Storyboard();
         public bool enemyDead = false;
-       
-
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
             window.fightEncountered = true;
+            window.fightEncounteredCount++;
             background.Opacity = 0;
+            if (window.fightEncounteredCount == 1)
+            {
+                EnemyHeart8.Visibility = Visibility.Collapsed;
+                EnemyHeart7.Visibility = Visibility.Collapsed;
+                EnemyHeart6.Visibility = Visibility.Collapsed;
+                EnemyHeart5.Visibility = Visibility.Collapsed;
+            }
+            else if (window.fightEncounteredCount == 2)
+            {
+                EnemyHeart8.Visibility = Visibility.Collapsed;
+                EnemyHeart7.Visibility = Visibility.Collapsed;
+            }
             string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 46 Spear of Justice.mp3";
             window.player.Source = new Uri(path, UriKind.Relative);
             while (background.Opacity < 1)
@@ -47,8 +58,46 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 background.Opacity += 0.01;
                 await Task.Delay(40);
             }
+            if (window.inventoryListBox.Items.Contains("Impetum Potion"))
+            {
+                await ImpetumPotionCheck();
+            }
             boxAnimation();
-
+        }
+        private async Task ImpetumPotionCheck()
+        {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            string greyHeart = @"pack://application:,,,/greyHeart.png";
+            var result = MessageBox.Show("Use Impetum Potion?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                if (EnemyHeart8.Source.ToString().Contains("heart") && EnemyHeart8.Visibility == Visibility.Visible)
+                {
+                    EnemyHeart8.Source = new BitmapImage(new Uri(greyHeart));
+                }
+                else if (EnemyHeart7.Source.ToString().Contains("heart") && EnemyHeart7.Visibility == Visibility.Visible)
+                {
+                    EnemyHeart7.Source = new BitmapImage(new Uri(greyHeart));
+                }
+                else if (EnemyHeart6.Source.ToString().Contains("heart") && EnemyHeart6.Visibility == Visibility.Visible)
+                {
+                    EnemyHeart6.Source = new BitmapImage(new Uri(greyHeart));
+                }
+                else if (EnemyHeart5.Source.ToString().Contains("heart") && EnemyHeart5.Visibility == Visibility.Visible)
+                {
+                    EnemyHeart5.Source = new BitmapImage(new Uri(greyHeart));
+                }
+                else if (EnemyHeart4.Source.ToString().Contains("heart") && EnemyHeart4.Visibility == Visibility.Visible)
+                {
+                    EnemyHeart4.Source = new BitmapImage(new Uri(greyHeart));
+                }
+                else if (EnemyHeart3.Source.ToString().Contains("heart") && EnemyHeart3.Visibility == Visibility.Visible)
+                {
+                    EnemyHeart3.Source = new BitmapImage(new Uri(greyHeart));
+                }
+            }
+            window.inventoryListBox.Items.Remove("Impetum Potion");
+            await Task.Delay(40);
         }
 
         private void boxAnimation()
@@ -94,7 +143,9 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             }
             else
             {
-                window.HeartDeath("You failed to successfully hit your opponent and they struck you as a result!");
+                Random random = new Random();
+                int damage = random.Next(0, 13);
+                window.HeartDeath("You failed to successfully hit your opponent and they struck you as a result!\n\nYou take " + damage + " points of damage!");
             }
 
             if (enemyDead == true)
@@ -105,9 +156,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             {
                 boxAnimation();
             }
-            
         }
-
         private void enemyHeartDeath()
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
@@ -115,11 +164,31 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             string sfx = @"Resources\music\sfx\success-fanfare-trumpets-6185.mp3";
             string greyHeart = @"pack://application:,,,/greyHeart.png";
 
-            if (EnemyHeart3.Source.ToString().Contains("heart"))
+            if (EnemyHeart8.Source.ToString().Contains("heart") && EnemyHeart8.Visibility == Visibility.Visible)
+            {
+                EnemyHeart8.Source = new BitmapImage(new Uri(greyHeart));
+            }
+            else if (EnemyHeart7.Source.ToString().Contains("heart") && EnemyHeart7.Visibility == Visibility.Visible)
+            {
+                EnemyHeart7.Source = new BitmapImage(new Uri(greyHeart));
+            }
+            else if (EnemyHeart6.Source.ToString().Contains("heart") && EnemyHeart6.Visibility == Visibility.Visible)
+            {
+                EnemyHeart6.Source = new BitmapImage(new Uri(greyHeart));
+            }
+            else if (EnemyHeart5.Source.ToString().Contains("heart") && EnemyHeart5.Visibility == Visibility.Visible)
+            {
+                EnemyHeart5.Source = new BitmapImage(new Uri(greyHeart));
+            }
+            else if (EnemyHeart4.Source.ToString().Contains("heart") && EnemyHeart4.Visibility == Visibility.Visible)
+            {
+                EnemyHeart4.Source = new BitmapImage(new Uri(greyHeart));
+            }
+            else if (EnemyHeart3.Source.ToString().Contains("heart") && EnemyHeart3.Visibility == Visibility.Visible)
             {
                 EnemyHeart3.Source = new BitmapImage(new Uri(greyHeart));
             }
-            else if (EnemyHeart2.Source.ToString().Contains("heart"))
+            else if (EnemyHeart2.Source.ToString().Contains("heart") && EnemyHeart2.Visibility == Visibility.Visible)
             {
                 EnemyHeart2.Source = new BitmapImage(new Uri(greyHeart));
             }
@@ -145,7 +214,6 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 });
                 t.Wait();
             }
-            
         }
         
         private async void endBattle()
@@ -160,9 +228,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 background.Opacity -= 0.01;
                 await Task.Delay(40);
             }
-
             window.MainFrame.Navigate(new Uri(window.returnFromFightPath, UriKind.Relative));
-
             background.Opacity = 1;
         }
     }

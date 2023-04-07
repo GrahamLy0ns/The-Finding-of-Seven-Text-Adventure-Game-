@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using Newtonsoft.Json;
+using System.CodeDom;
 
 namespace The_Finding_of_Seven__Text_Adventure_Game_
 {
@@ -34,13 +35,11 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         {
             InitializeComponent();
         }
-
         private void btn2_Click(object sender, RoutedEventArgs e)
         {
             btn2Click = true;
             gameTextDisplay();
         }
-
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
             btn1Click = true;
@@ -49,33 +48,26 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             dreamTextBox.Visibility = Visibility.Collapsed;
             dreamLabel.Visibility = Visibility.Collapsed;
         }
-
         private void displayBox_LayoutUpdated(object sender, EventArgs e)
         {
             scroll.ScrollToBottom();
         }
-
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-
             //hiding dream ui
             dreamTextBox.Visibility = Visibility.Collapsed;
             submitBtnDream.Visibility = Visibility.Collapsed;
-
             //collapsing btns
             btn1.Visibility = Visibility.Collapsed;
             btn2.Visibility = Visibility.Collapsed;
-
             //collapsing riddle
             riddle.Visibility = Visibility.Collapsed;
             submitBtn.Visibility = Visibility.Collapsed;
-
             //setting scene
             background.Opacity = 0;
             displayBox.Opacity = 0;
             border.Opacity = 0;
-            
             string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 69 For the Fans.mp3";
             window.player.Source = new Uri(path, UriKind.Relative);
             while (background.Opacity < 1)
@@ -91,27 +83,10 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 displayBox.Opacity += 0.01;
                 await Task.Delay(40);
             }
-            //adding json text to text box
-            string titleText = "Chapter 6\nThe Drawbridge";
-            //displaying title
-            foreach (char c in titleText)
-            {
-                title.Text += c;
-                await Task.Delay(80);
-
-            }
-            //displaying p1 and q1
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string p1Text = "\n\n\n" + json.main[0].P1;
-
-            //calling the methods for text and pausing it
-            p1();
-            for (int i = 0; i < p1Text.Length; i++)
-            {
-                await Task.Delay(45);
-            }
-            await Task.Delay(1000);
-            q1();
+            //displaying text
+            await displayText("title");
+            await displayText("p1");
+            await displayText("q1");
         }
         public class GameText
         {
@@ -130,35 +105,127 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             public string[] SA2;
             public string[] A4;
         }
-        private async void gameTextDisplay()
+        private async void displayElements(string GameText)
         {
+            //declaring variables
             var json = JsonConvert.DeserializeObject<GameText>(jsonString);
+            string btn1Text = "";
+            string btn2Text = "";
+            string dreamLabelText = "";
+            //logic
+            switch (GameText)
+            {
+                case "q1": btn1Text = json.main[1].Q1[1].A1[0].AT1; btn2Text = json.main[1].Q1[2].A2[0]; break;
+                case "sq1": btn1Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[0].SAT1; dreamLabelText = json.main[3].Q2[1].A3[2].SQ1[2].SA2[0]; break;
+                case "ssq1":btn1Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[2].SSQ1[1].SSA1[0]; dreamLabelText = json.main[3].Q2[1].A3[2].SQ1[2].SA2[0]; break;
+                case "r": riddle.Visibility = Visibility.Visible; submitBtn.Visibility = Visibility.Visible; break;
+                case "q2": btn1Text = json.main[3].Q2[1].A3[0].AT3; dreamLabelText = json.main[3].Q2[1].A3[2].SQ1[2].SA2[0]; break;
+            }
+            if (GameText == "q1")
+            {
+                btn1.Visibility = Visibility.Visible;
+                btn2.Visibility = Visibility.Visible;
+                btn1Display.Text = btn1Text;
+                btn2Display.Text = btn2Text;
+            }
+            else if (GameText == "q2" || GameText == "ssq1" || GameText == "sq1")
+            {
+                btn1.Visibility = Visibility.Visible;
+                btn1Display.Text = btn1Text;
+                dreamLabel.Content = dreamLabelText;
+                dreamLabel.Visibility = Visibility.Visible;
+                dreamTextBox.Visibility = Visibility.Visible;
+                submitBtnDream.Visibility = Visibility.Visible;
+            }
+        }
+        private void hideElements(string GameText)
+        {
+            //riddle condition
+            if (GameText == "r")
+            {
+                riddle.Visibility = Visibility.Collapsed;
+                submitBtn.Visibility = Visibility.Collapsed;
+            }
+            //hiding elements
+            btn1.Visibility = Visibility.Collapsed;
+            btn2.Visibility = Visibility.Collapsed;
+            btn1Click = false;
+            btn2Click = false;
+        }
+        private async Task displayText(string GameText)
+        {
+            //declaring variables
+            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
+            var element = display;
+            int delay = 40;
+            string text = "";
+            string titleText = "Chapter 6\nThe Drawbridge";
+            string p1Text = "\n\n\n" + json.main[0].P1;
+            string q1Text = json.main[1].Q1[0].QT1;
             string a1Text = json.main[1].Q1[1].A1[1].T1;
+            string rText = json.main[1].Q1[1].A1[2].R;
             string a2Text = json.main[1].Q1[2].A2[1];
-            string pText = json.main[2].P2;
+            string ssa1Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[2].SSQ1[1].SSA1[1];
+            string sa1Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[1].T3;
+            string p2Text = json.main[2].P2;
             string a3Text = json.main[3].Q2[1].A3[1].T2;
             string sa3Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[1].T3;
-            string ssa1Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[2].SSQ1[1].SSA1[1];
-
+            string ssq1Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[2].SSQ1[0].SSQT1;
+            string sq1Text = json.main[3].Q2[1].A3[2].SQ1[0].SQT1;
+            string lText = json.main[1].Q1[1].A1[4].L;
+            string wText = json.main[1].Q1[1].A1[3].W;
+            string q2Text = json.main[3].Q2[0].QT2;
+            string p3Text = json.main[4].P3;
+            //logic
+            switch (GameText)
+            {
+                case "title": text = titleText; element = title; delay = 80; break;
+                case "p1": text = p1Text; break;
+                case "q1": text = q1Text; break;
+                case "a1": text = a1Text; hideElements("a1"); break;
+                case "r": text = rText; break;
+                case "a2": text = a2Text; hideElements("a2"); break;
+                case "ssa1": text = ssa1Text; hideElements("ssa1"); break;
+                case "sa1": text = sa1Text; hideElements("sa1"); break;
+                case "p2": text = p2Text; break;
+                case "a3": text = a3Text; hideElements("a3"); break;
+                case "sa3": text = sa3Text; hideElements("sa3"); break;
+                case "ssq1": text = ssq1Text; break;
+                case "sq1": text = sq1Text; break;
+                case "l": text = lText; break;
+                case "w": text = wText; break;
+                case "q2": text = q2Text; break;
+                case "p3": text = p3Text; break;
+            }
+            //displaying text
+            foreach (char c in text)
+            {
+                element.Text += c;
+                await Task.Delay(delay);
+            }
+            //displaying objects for appropriate text
+            switch (GameText)
+            {
+                case "q1": displayElements("q1"); break;
+                case "r": displayElements("r"); break;
+                case "ssq1": displayElements("ssq1"); break;
+                case "sq1": displayElements("sq1"); break;
+                case "q2": displayElements("q2"); break;
+            }
+        }
+        private async void gameTextDisplay()
+        {
             if (count == 0)
             {
                 if(btn1Click == true)
                 {
-                    a1();
-                    for (int i = 0; i < a1Text.Length; i++)
-                    {
-                        await Task.Delay(45);
-                    }
-                    r();
+                    await displayText("a1");
+                    await displayText("r");
                     //rest of code in submitBtn click event
                 }
                 else if (btn2Click == true)
                 {
-                    a2();
-                    for (int i = 0; i < a2Text.Length; i++)
-                    {
-                        await Task.Delay(45);
-                    }
+                    await displayText("a2");
                     youDied();
                 }
             }
@@ -170,289 +237,23 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                     {
                         if (subSubCount == 1)
                         {
-                            ssa1();
-                            for (int i = 0; i < ssa1Text.Length; i++)
-                            {
-                                await Task.Delay(45);
-                            }
+                            await displayText("ssa1");
                             youDied();
-
                         }
                         else
                         {
-                            sa3();
-                            for (int i = 0; i < sa3Text.Length; i++)
-                            {
-                                await Task.Delay(45);
-                            }
-                            ssq1();
+                            await displayText("sa3");
+                            await displayText("ssq1");
                             subSubCount++;
                         }
                     }
                     else
                     {
-                        a3();
-                        for (int i = 0; i < a3Text.Length; i++)
-                        {
-                            await Task.Delay(45);
-                        }
-                        sq1();
+                        await displayText("a3");
+                        await displayText("sq1");
                         subCount++;
                     }
-                    
                 }
-            }
-
-        }
-        private async void p1()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = "\n\n\n" + json.main[0].P1;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void q1()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[1].Q1[0].QT1;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-            }
-            //displaying buttons with content
-
-            btn1.Visibility = Visibility.Visible;
-            btn2.Visibility = Visibility.Visible;
-            btn1Display.Text = json.main[1].Q1[1].A1[0].AT1;
-            btn2Display.Text = json.main[1].Q1[2].A2[0];
-        }
-        private async void a1()
-        {
-            btn1.Visibility = Visibility.Collapsed;
-            btn2.Visibility = Visibility.Collapsed;
-            btn1Click = false;
-            btn2Click = false;
-
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[1].Q1[1].A1[1].T1;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void a2()
-        {
-            btn1.Visibility = Visibility.Collapsed;
-            btn2.Visibility = Visibility.Collapsed;
-            btn1Click = false;
-            btn2Click = false;
-
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[1].Q1[2].A2[1];
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void r()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[1].Q1[1].A1[2].R;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-
-            riddle.Visibility = Visibility.Visible;
-            submitBtn.Visibility = Visibility.Visible;
-            riddle.Opacity = 0;
-            submitBtn.Opacity = 0;
-            //fading in ui elements
-            for (double i = 0; i < 1; i += 0.01)
-            {
-                await Task.Delay(45);
-                riddle.Opacity += 0.01;
-                submitBtn.Opacity += 0.01;
-            }
-        }
-        private async void w()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[1].Q1[1].A1[3].W;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void l()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[1].Q1[1].A1[4].L;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void p2()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[2].P2;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void q2()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[3].Q2[0].QT2;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-            }
-            //displaying buttons with content
-
-            btn1.Visibility = Visibility.Visible;
-            
-            btn1Display.Text = json.main[3].Q2[1].A3[0].AT3;
-            dreamLabel.Content = json.main[3].Q2[2].A4[0];
-        }
-        private async void a3()
-        {
-            btn1.Visibility = Visibility.Collapsed;
-            btn2.Visibility = Visibility.Collapsed;
-            btn1Click = false;
-            btn2Click = false;
-
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[3].Q2[1].A3[1].T2;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void sq1()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[3].Q2[1].A3[2].SQ1[0].SQT1;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-            }
-            //displaying buttons with content
-
-            btn1.Visibility = Visibility.Visible;
-            btn1Display.Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[0].SAT1;
-            //displaying input box
-            dreamLabel.Content = json.main[3].Q2[1].A3[2].SQ1[2].SA2[0];
-            dreamLabel.Visibility = Visibility.Visible;
-            dreamTextBox.Visibility = Visibility.Visible;
-            submitBtnDream.Visibility = Visibility.Visible;
-        }
-        private async void sa3()
-        {
-            btn1.Visibility = Visibility.Collapsed;
-            btn2.Visibility = Visibility.Collapsed;
-            btn1Click = false;
-            btn2Click = false;
-            //hiding text input
-            dreamLabel.Visibility = Visibility.Collapsed;
-            dreamTextBox.Visibility = Visibility.Collapsed;
-            submitBtnDream.Visibility = Visibility.Collapsed;
-
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[1].T3;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void ssq1()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[2].SSQ1[0].SSQT1;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-            }
-            //displaying buttons with content
-
-            btn1.Visibility = Visibility.Visible;
-            btn1Display.Text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[2].SSQ1[1].SSA1[0];
-            //displaying input box
-            dreamLabel.Content = json.main[3].Q2[1].A3[2].SQ1[2].SA2[0];
-            dreamLabel.Visibility = Visibility.Visible;
-            dreamTextBox.Visibility = Visibility.Visible;
-            submitBtnDream.Visibility = Visibility.Visible;
-        }
-        private async void ssa1()
-        {
-            btn1.Visibility = Visibility.Collapsed;
-            btn2.Visibility = Visibility.Collapsed;
-            btn1Click = false;
-            btn2Click = false;
-            //hiding text input
-            dreamLabel.Visibility = Visibility.Collapsed;
-            dreamTextBox.Visibility = Visibility.Collapsed;
-            submitBtnDream.Visibility = Visibility.Collapsed;
-
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[3].Q2[1].A3[2].SQ1[1].SA1[2].SSQ1[1].SSA1[1];
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
-            }
-        }
-        private async void p3()
-        {
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string text = json.main[4].P3;
-
-            foreach (char c in text)
-            {
-                display.Text += c;
-                await Task.Delay(45);
-
             }
         }
         private async void submitBtn_Click(object sender, RoutedEventArgs e)
@@ -460,28 +261,16 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             riddle.Visibility = Visibility.Collapsed;
             submitBtn.Visibility = Visibility.Collapsed;
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string wText = json.main[1].Q1[1].A1[3].W;
-            string lText = json.main[1].Q1[1].A1[4].L;
-            string p2Text = json.main[2].P2;
-
+            //logic
             if (riddle.Text.ToLower() == "sapphire")
             {
-                w();
-                for (int i = 0; i < wText.Length; i++)
-                {
-                    await Task.Delay(45);
-                }
+                await displayText("w");
                 window.inventoryListBox.Items.Add("Blue Gem");
                 window.inventoryItems.Add("Blue Gem");
             }
             else
             {
-                l();
-                for (int i = 0; i < lText.Length; i++)
-                {
-                    await Task.Delay(45);
-                }
+                await displayText("l");
             }
             //scene change
             while (background.Opacity > 0)
@@ -500,48 +289,34 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 background.Opacity += 0.1;
                 await Task.Delay(60);
             }
-            p2();
-            for (int i = 0; i < p2Text.Length; i++)
-            {
-                await Task.Delay(45);
-            }
-            q2();
+            await displayText("p2");
+            await displayText("q2");
             count++;
-            dreamLabel.Visibility = Visibility.Visible;
-            dreamTextBox.Visibility = Visibility.Visible;
-            submitBtnDream.Visibility = Visibility.Visible;
         }
-
         private void riddle_GotFocus(object sender, RoutedEventArgs e)
         {
             riddle.Clear();
         }
-
         private async void submitBtnDream_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow window = (MainWindow)Window.GetWindow(this);
+            btn1.Visibility = Visibility.Collapsed;
             submitBtnDream.Visibility = Visibility.Collapsed;
             dreamLabel.Visibility = Visibility.Collapsed;
             dreamTextBox.Visibility= Visibility.Collapsed;
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-            string p3Text = json.main[4].P3;
-
             //continue display
             if (dreamTextBox.Text.ToLower().Contains("dream"))
             {
-                p3();
-                for (int i = 0; i < p3Text.Length; i++)
-                {
-                    await Task.Delay(45);
-                }
+                await displayText("p3");
+                //add indigo gem
+                window.inventoryListBox.Items.Add("Indigo Gem");
+                window.inventoryItems.Add("Indigo Gem");
                 endOfChapter();
             }
         }
         private async void youDied()
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-
-
             //fade out scene change code below
             while (background.Opacity > 0)
             {
@@ -549,16 +324,12 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 background.Opacity -= 0.01;
                 await Task.Delay(40);
             }
-
             window.MainFrame.Navigate(new Uri("Page6.xaml", UriKind.Relative));
-
             background.Opacity = 1;
         }
         private async void endOfChapter()
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            var json = JsonConvert.DeserializeObject<GameText>(jsonString);
-
             //fade out scene change code below
             while (background.Opacity > 0)
             {
@@ -566,12 +337,8 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 background.Opacity -= 0.01;
                 await Task.Delay(40);
             }
-
             window.MainFrame.Navigate(new Uri("Page11.xaml", UriKind.Relative));
-
             background.Opacity = 1;
-
-
         }
     }
 }

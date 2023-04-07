@@ -76,7 +76,7 @@
             </Button.Resources>
             <TextBlock x:Name="btn2Display" Foreground="#FFFFFEFE" FontSize="20" Width="177" TextWrapping="Wrap" TextAlignment="Center" Padding="10"></TextBlock>
         </Button>
-        <TextBox x:Name="riddle" HorizontalAlignment="Left" Margin="493,517,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" FontSize="20" Foreground="White" Height="51" GotFocus="riddle_GotFocus" Background="{x:Null}"/>
+        <TextBox x:Name="riddle" HorizontalAlignment="Left" Margin="493,523,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" FontSize="20" Foreground="White" Height="45" GotFocus="riddle_GotFocus" Background="{x:Null}"/>
         <Button x:Name="submitBtn" Content="Submit" HorizontalAlignment="Left" Margin="554,572,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.351" Width="122" FontSize="20" Foreground="#FFFFFBFB" Click="submitBtn_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -103,7 +103,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBox x:Name="dreamTextBox" HorizontalAlignment="Left" Margin="674,528,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="342" FontSize="20" Foreground="White" Height="52" GotFocus="riddle_GotFocus" Background="{x:Null}"/>
+        <TextBox x:Name="dreamTextBox" HorizontalAlignment="Left" Margin="674,542,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="342" FontSize="20" Foreground="White" Height="38" GotFocus="riddle_GotFocus" Background="{x:Null}"/>
         <Button x:Name="submitBtnDream" Content="Submit" HorizontalAlignment="Left" Margin="784,585,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.351" Width="122" FontSize="20" Foreground="#FFFFFBFB" Click="submitBtnDream_Click">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">

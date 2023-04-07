@@ -20,6 +20,11 @@
                     <Image x:Name="EnemyHeart1" Height="30" Width="29" Source="/heart.png" />
                     <Image x:Name="EnemyHeart2" Height="30" Width="29" Source="/heart.png" />
                     <Image x:Name="EnemyHeart3" Height="30" Width="29" Source="/heart.png" />
+                    <Image x:Name="EnemyHeart4" Height="30" Width="29" Source="/heart.png" />
+                    <Image x:Name="EnemyHeart5" Height="30" Width="29" Source="/heart.png" />
+                    <Image x:Name="EnemyHeart6" Height="30" Width="29" Source="/heart.png" />
+                    <Image x:Name="EnemyHeart7" Height="30" Width="29" Source="/heart.png" />
+                    <Image x:Name="EnemyHeart8" Height="30" Width="29" Source="/heart.png" />
                 </StackPanel>
             </Border>
         </Border>

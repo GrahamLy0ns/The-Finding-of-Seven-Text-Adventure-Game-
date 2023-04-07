@@ -11,12 +11,11 @@
 
     <Grid Name="background">
         <MediaElement Name="player" Volume="0.4" MediaEnded="player_MediaEnded"/>
-        <Frame Name="MainFrame" NavigationUIVisibility="Hidden">
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Content="MainWindow">
             <Frame.Background>
                 <ImageBrush ImageSource="/forest.jpg" />
             </Frame.Background>
         </Frame>
-
         <Border x:Name="border" BorderBrush="#FF654321" BorderThickness="4px" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock x:Name="display" TextWrapping="Wrap" Height="289" Width="464" Background="Black" Foreground="White" Padding="20" FontSize="14"/>
         </Border>
@@ -47,8 +46,8 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <StackPanel x:Name="MainNavigation" Orientation="Horizontal" Margin="0,0,0,567" HorizontalAlignment="Center" Width="1139">
-            <Button x:Name="hideNav" Content="Hide Navigation" Foreground="White" FontSize="18" Margin="20, 0, 20, 0" Padding="20" Click="hideNav_Click">
+        <StackPanel x:Name="MainNavigation" Orientation="Horizontal" Margin="0,0,0,567" HorizontalAlignment="Center" Width="Auto">
+            <Button x:Name="merchantShopBtn" Content="Merchant Shop" Foreground="White" FontSize="14" Margin="0, 0, 0, 0" Padding="20" Click="merchantShopBtn_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#40513B"></Setter>
@@ -74,7 +73,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="pause" Content="Pause" Foreground="White" FontSize="18" Padding="20" Click="pause_Click" Margin="0, 0, 20, 0">
+            <Button x:Name="hideNav" Content="Hide Navigation" Foreground="White" FontSize="14" Margin="10, 0, 10, 0" Padding="20" Click="hideNav_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#40513B"></Setter>
@@ -100,7 +99,33 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="showInventoryBtn" Content="Show Inventory" Foreground="White" FontSize="18" Padding="20" Click="showInventoryBtn_Click">
+            <Button x:Name="pause" Content="Pause" Foreground="White" FontSize="14" Padding="20" Click="pause_Click" Margin="0, 0, 10, 0">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#40513B"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#609966"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="quit" Content="Quit" FontSize="14" Foreground="White" Padding="20" Click="quit_Click" Margin="0, 0, 10, 0">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -126,22 +151,51 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Border Background="#40513B" BorderThickness="2" CornerRadius="10" HorizontalAlignment="Center" Margin="20, 0, 0, 0">
+            <Border Background="#40513B" BorderThickness="2" CornerRadius="10" HorizontalAlignment="Center" Margin="0, 0, 0, 0">
                 <Border Background="#40513B" BorderThickness="2" CornerRadius="10" >
-                    <StackPanel Orientation="Horizontal" Background="#40513B" Margin="20, 0, 0, 0" HorizontalAlignment="Center">
-                        <TextBlock x:Name="healthDisplay" Text="Health: " VerticalAlignment="Center" FontSize="18" Foreground="#FFFCFCFC" Padding="20"></TextBlock>
-                        <Image x:Name="heart1" Height="30" Width="29" Source="/heart.png" />
-                        <Image x:Name="heart2" Height="30" Width="29" Source="/heart.png" />
-                        <Image x:Name="heart3" Height="30" Width="29" Source="/heart.png" />
-                        <Image x:Name="heart4" Height="30" Width="29" Source="/heart.png" />
-                        <Image x:Name="heart5" Height="30" Width="29" Source="/heart.png" />
-                        <TextBlock x:Name="goldDisplay" Text="Gold:" VerticalAlignment="Center" FontSize="18" Foreground="#FFFFFEFE" Padding="20,20,10,20"></TextBlock>
-                        <TextBlock x:Name="balance" Text="0" VerticalAlignment="Center" FontSize="18" Foreground="#FFFFFEFE" Padding="0,20,20,20"/>
-                        <Image x:Name="coin" Height="30" Width="29" Source="/coin.png"  />
+                    <StackPanel Orientation="Horizontal" Background="#40513B" Margin="10, 0, 0, 0" HorizontalAlignment="Center">
+                        <TextBlock x:Name="healthDisplay" Text="Health: " VerticalAlignment="Center" FontSize="14" Foreground="#FFFCFCFC" Padding="20"></TextBlock>
+                        <Image x:Name="heart1" Height="24" Width="22" Source="/heart.png" />
+                        <Image x:Name="heart2" Height="24" Width="22" Source="/heart.png" />
+                        <Image x:Name="heart3" Height="24" Width="22" Source="/heart.png" />
+                        <Image x:Name="heart4" Height="24" Width="22" Source="/heart.png" />
+                        <Image x:Name="heart5" Height="24" Width="22" Source="/heart.png" />
+                        <Image x:Name="shield1" Height="24" Width="22" Source="/shield.png"/>
+                        <Image x:Name="shield2" Height="24" Width="22" Source="/shield.png"/>
+                        <Image x:Name="shield3" Height="24" Width="22" Source="/shield.png"/>
+                        <TextBlock x:Name="goldDisplay" Text="Gold:" VerticalAlignment="Center" FontSize="14" Foreground="#FFFFFEFE" Padding="20,20,10,20"></TextBlock>
+                        <TextBlock x:Name="balance" Text="0" VerticalAlignment="Center" FontSize="14" Foreground="#FFFFFEFE" Padding="0,20,20,20"/>
+                        <Image x:Name="coin" Height="24" Width="22" Source="/coin.png"  />
                     </StackPanel>
                 </Border>
             </Border>
-            <Button x:Name="mainMenu" Content="Main Menu" Foreground="White" FontSize="18" Margin="20,0,0,0" Padding="20" Click="mainMenu_Click">
+            <Button x:Name="showInventoryBtn" Content="Show Inventory" Foreground="White" FontSize="14" Padding="20" Click="showInventoryBtn_Click" Margin="10, 0, 0, 0">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#40513B"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#609966"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="mainMenu" Content="Main Menu" Foreground="White" FontSize="14" Margin="10,0,0,0" Padding="20" Click="mainMenu_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#40513B"></Setter>
@@ -167,33 +221,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="quit" Content="Quit" FontSize="18" Foreground="White" Margin="20,0,0,0" Padding="20" Click="quit_Click">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#40513B"></Setter>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#609966"></Setter>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button x:Name="soundControlBtn" Content="Sound Settings" Margin="20,0,0,0" Foreground="White" FontSize="18" Click="soundControlBtn_Click" Width="159">
+            <Button x:Name="soundControlBtn" Content="Sound Settings" Margin="10,0,0,0" Foreground="White" FontSize="14" Click="soundControlBtn_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#40513B"></Setter>
@@ -221,7 +249,7 @@
             </Button>
 
         </StackPanel>
-        <StackPanel Name="soundControlBtns" Margin="1001,91,38,222" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Name="soundControlBtns" Margin="1086,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button x:Name="mute" Margin="20,20,20,20" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{x:Null}" Click="mute_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -367,6 +395,11 @@
         </Button>
         <ListBox x:Name="inventoryListBox" Margin="30,171,870,264" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}" FontSize="18"/>
         <Label x:Name="inventoryLabel" Content="Inventory Items" HorizontalAlignment="Left" Margin="107,129,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+        <StackPanel Margin="989,88,119,487">
+            <TextBlock x:Name="AttackTextBlock" TextWrapping="Wrap" Text="+3 Attack" FontSize="14" Foreground="White"/>
+            <TextBlock x:Name="DefenseTextBlock" TextWrapping="Wrap" Text="+3 Defense" FontSize="14" Foreground="White"/>
+        </StackPanel>
+        <TextBlock x:Name="date" HorizontalAlignment="Center" Margin="0,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="18" Width="1180" TextAlignment="Center"/>
 
 
 

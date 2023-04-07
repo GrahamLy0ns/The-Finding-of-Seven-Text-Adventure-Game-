@@ -49,11 +49,11 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 restartBtn.Opacity += 0.01;
                 Task.Delay(40);
             }
-            
         }
 
         private void restartBtn_Click(object sender, RoutedEventArgs e)
         {
+            //reseting game data
             MainWindow window = (MainWindow)Window.GetWindow(this);
             Application.Current.Shutdown();
             System.Diagnostics.Process.Start(Environment.GetCommandLineArgs()[0]);
