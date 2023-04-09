@@ -27,6 +27,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Model1Container1 db = new Model1Container1();
         //boolean values to determine on and off states in the game
         public bool merchantShopEncountered = false;
         public bool fightEncountered = false;
@@ -45,6 +46,37 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         }
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //query database to get game assets (sound src and image src)
+            var imageQuery = from a in db.ImageTBLs
+                        where a.ImageName == "forest"
+                        select a.ImageSrc;
+            var soundQuery = from a in db.SoundTBLs
+                             where a.PageTBLId == 14
+                             select a.SoundSrc;
+            var heartQuery = from a in db.ImageTBLs
+                             where a.ImageName == "heart"
+                             select a.ImageSrc;
+            var shieldQuery = from a in db.ImageTBLs
+                              where a.ImageName == "shield"
+                              select a.ImageSrc;
+            var coinQuery = from a in db.ImageTBLs
+                            where a.ImageName == "coin"
+                            select a.ImageSrc;
+            string coinImage = coinQuery.ToList()[0];
+            string shieldImage = shieldQuery.ToList()[0];
+            string redHeart = heartQuery.ToList()[0];
+            string path = soundQuery.ToList()[0];
+            string result = imageQuery.ToList()[0];
+            background.Background = new ImageBrush(new BitmapImage(new Uri(result, UriKind.Relative)));
+            heart1.Source = new BitmapImage(new Uri(redHeart));
+            heart2.Source = new BitmapImage(new Uri(redHeart));
+            heart3.Source = new BitmapImage(new Uri(redHeart));
+            heart4.Source = new BitmapImage(new Uri(redHeart));
+            heart5.Source = new BitmapImage(new Uri(redHeart));
+            shield1.Source = new BitmapImage(new Uri(shieldImage));
+            shield2.Source = new BitmapImage(new Uri(shieldImage));
+            shield3.Source = new BitmapImage(new Uri(shieldImage));
+            coin.Source = new BitmapImage(new Uri(coinImage));
             //displaying date
             DateTime dateTime = DateTime.Today;
             string currentDate = dateTime.ToString();
@@ -62,7 +94,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             //hiding reveal nav btn
             revealNavigation.Visibility = Visibility.Hidden;
             soundControlBtns.Visibility = Visibility.Hidden;
-            string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 02 Start Menu.mp3";
+            //string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 02 Start Menu.mp3";
             player.LoadedBehavior = MediaState.Manual;
             player.Source = new Uri(path, UriKind.RelativeOrAbsolute);
             player.Play();
@@ -84,7 +116,10 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         }
         public void GetGold(int goldAmount, string msg)
         {
-            string path = @"Resources\music\sfx\cha-ching.mp3";
+            var goldSoundQuery = from a in db.SoundTBLs
+                                 where a.SoundName == "goldSound"
+                                 select a.SoundSrc;
+            string path = goldSoundQuery.ToList()[0];
             int goldBalance = Convert.ToInt32(balance.Text);
             goldBalance += goldAmount;
             balance.Text = goldBalance.ToString();
@@ -93,16 +128,26 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 MessageBox.Show($"You Got {goldAmount} Gold!\n{msg}");
             });
             player.LoadedBehavior = MediaState.Manual;
-            player.Source = new Uri(path, UriKind.RelativeOrAbsolute);
+            player.Source = new Uri(path, UriKind.Relative);
             player.Play();
             t.Wait();
         }
 
         public async void HeartDeath(string text)
         {
-            string sfx = @"Resources\music\sfx\heart-death.mp3";
-            string greyHeart = @"pack://application:,,,/greyHeart.png";
-            string redHeart = @"pack://application:,,,/heart.png";
+            var deathSoundQuery = from a in db.SoundTBLs
+                                  where a.SoundName == "heartDeath"
+                                  select a.SoundSrc;
+            
+            var greyHeartQuery = from a in db.ImageTBLs
+                                 where a.ImageName == "greyHeart"
+                                 select a.ImageSrc;
+            var heartQuery = from a in db.ImageTBLs
+                             where a.ImageName == "heart"
+                             select a.ImageSrc;
+            string redHeart = heartQuery.ToList()[0];
+            string sfx = deathSoundQuery.ToList()[0];
+            string greyHeart = greyHeartQuery.ToList()[0];
             //checking if player has shield
             if (inventoryListBox.Items.Contains("Wooden Shield"))
             {
@@ -118,7 +163,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 {
                     shield1.Opacity = 0.4;
                     inventoryListBox.Items.Remove("Wooden Shield");
-                    
+                    inventoryItems.Remove("Wooden Shield (20 Gold)");
                 }
             }
             else
@@ -150,6 +195,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                         heart2.Source = new BitmapImage(new Uri(redHeart));
                         heart3.Source = new BitmapImage(new Uri(redHeart));
                         inventoryListBox.Items.Remove("Healing Potion");
+                        inventoryItems.Remove("Healing Potion (20 Gold)");
                     }
                     else
                     {
@@ -184,7 +230,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 title.Opacity -= 0.01;
                 await Task.Delay(40);
             }
-            MainFrame.Navigate(new Uri("Page12.xaml", UriKind.Relative));
+            MainFrame.Navigate(new Uri("Page1.xaml", UriKind.Relative));
             startGameButton.Visibility = Visibility.Collapsed;
         }
         private void quit_Click(object sender, RoutedEventArgs e)
@@ -287,11 +333,50 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             {
                 inventoryLabel.Visibility = Visibility.Collapsed;
                 inventoryListBox.Visibility = Visibility.Collapsed;
+                //refresh inventory 
+                inventoryListBox.Items.Clear();
             }
             else 
             {
                 inventoryLabel.Visibility = Visibility.Visible;
                 inventoryListBox.Visibility = Visibility.Visible;
+            }
+            //checking items
+            if (inventoryItems.Count == 0)
+            {
+                //do nothing
+            }
+            else
+            {
+                //adding purchased shop items to inventory
+                foreach (var item in inventoryItems)
+                {
+                    if (item.ToString().Contains("Red Gem") && inventoryListBox.Items.Contains("Red Gem") == false)
+                    {
+                        inventoryListBox.Items.Add("Red Gem");
+                    }
+                    else if (item.ToString().Contains("Steel Sword") && inventoryListBox.Items.Contains("Steel Sword") == false)
+                    {
+                        inventoryListBox.Items.Add("Steel Sword");
+                        AttackTextBlock.Visibility = Visibility.Visible;
+                    }
+                    else if (item.ToString().Contains("Healing Potion") && inventoryListBox.Items.Contains("Healing Potion") == false)
+                    {
+                        inventoryListBox.Items.Add("Healing Potion");
+                    }
+                    else if (item.ToString().Contains("Impetum Potion") && inventoryListBox.Items.Contains("Impetum Potion") == false)
+                    {
+                        inventoryListBox.Items.Add("Impetum Potion");
+                    }
+                    else if (item.ToString().Contains("Wooden Shield") && inventoryListBox.Items.Contains("Wooden Shield") == false)
+                    {
+                        inventoryListBox.Items.Add("Wooden Shield");
+                        DefenseTextBlock.Visibility = Visibility.Visible;
+                        shield1.Visibility = Visibility.Visible;
+                        shield2.Visibility = Visibility.Visible;
+                        shield3.Visibility = Visibility.Visible;
+                    }
+                }
             }
         }
 

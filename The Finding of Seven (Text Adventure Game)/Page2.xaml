@@ -10,11 +10,6 @@
       Loaded="Page_Loaded">
 
     <Grid Name="background">
-        <Grid.Background>
-            <ImageBrush ImageSource="/road3.png" />
-        </Grid.Background>
-
-
         <MediaElement Name="trollSound" Margin="0,11,0,-11" Cursor="AppStarting"/>
         <Border Name="border" BorderBrush="#FF654321" BorderThickness="4px" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ScrollViewer HorizontalAlignment="Center" VerticalAlignment="Center" Name="scroll" Height="289" VerticalScrollBarVisibility="Hidden">
@@ -79,7 +74,7 @@
             </Button.Resources>
             <TextBlock x:Name="btn2Display" Foreground="#FFFFFEFE" FontSize="20" Width="177" TextWrapping="Wrap" TextAlignment="Center" Padding="10"></TextBlock>
         </Button>
-        <Image x:Name="trollImage" HorizontalAlignment="Left" Height="247" Margin="560,203,0,0" VerticalAlignment="Top" Width="176" Source="/troll3.png"/>
+        <Image x:Name="trollImage" HorizontalAlignment="Left" Height="247" Margin="560,203,0,0" VerticalAlignment="Top" Width="176"/>
         <TextBox x:Name="riddle" HorizontalAlignment="Left" Margin="493,517,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" FontSize="20" Foreground="White" Height="51" GotFocus="riddle_GotFocus" Background="{x:Null}"/>
         <Button x:Name="submitBtn" Content="Submit" HorizontalAlignment="Left" Margin="554,572,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.351" Width="122" FontSize="20" Foreground="#FFFFFBFB" Click="submitBtn_Click">
             <Button.Style>

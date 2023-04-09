@@ -11,11 +11,7 @@
 
     <Grid Name="background">
         <MediaElement Name="player" Volume="0.4" MediaEnded="player_MediaEnded"/>
-        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Content="MainWindow">
-            <Frame.Background>
-                <ImageBrush ImageSource="/forest.jpg" />
-            </Frame.Background>
-        </Frame>
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Content="MainWindow"/>
         <Border x:Name="border" BorderBrush="#FF654321" BorderThickness="4px" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock x:Name="display" TextWrapping="Wrap" Height="289" Width="464" Background="Black" Foreground="White" Padding="20" FontSize="14"/>
         </Border>
@@ -155,17 +151,17 @@
                 <Border Background="#40513B" BorderThickness="2" CornerRadius="10" >
                     <StackPanel Orientation="Horizontal" Background="#40513B" Margin="10, 0, 0, 0" HorizontalAlignment="Center">
                         <TextBlock x:Name="healthDisplay" Text="Health: " VerticalAlignment="Center" FontSize="14" Foreground="#FFFCFCFC" Padding="20"></TextBlock>
-                        <Image x:Name="heart1" Height="24" Width="22" Source="/heart.png" />
-                        <Image x:Name="heart2" Height="24" Width="22" Source="/heart.png" />
-                        <Image x:Name="heart3" Height="24" Width="22" Source="/heart.png" />
-                        <Image x:Name="heart4" Height="24" Width="22" Source="/heart.png" />
-                        <Image x:Name="heart5" Height="24" Width="22" Source="/heart.png" />
-                        <Image x:Name="shield1" Height="24" Width="22" Source="/shield.png"/>
-                        <Image x:Name="shield2" Height="24" Width="22" Source="/shield.png"/>
-                        <Image x:Name="shield3" Height="24" Width="22" Source="/shield.png"/>
+                        <Image x:Name="heart1" Height="24" Width="22"/>
+                        <Image x:Name="heart2" Height="24" Width="22"/>
+                        <Image x:Name="heart3" Height="24" Width="22"/>
+                        <Image x:Name="heart4" Height="24" Width="22"/>
+                        <Image x:Name="heart5" Height="24" Width="22"/>
+                        <Image x:Name="shield1" Height="24" Width="22"/>
+                        <Image x:Name="shield2" Height="24" Width="22"/>
+                        <Image x:Name="shield3" Height="24" Width="22"/>
                         <TextBlock x:Name="goldDisplay" Text="Gold:" VerticalAlignment="Center" FontSize="14" Foreground="#FFFFFEFE" Padding="20,20,10,20"></TextBlock>
                         <TextBlock x:Name="balance" Text="0" VerticalAlignment="Center" FontSize="14" Foreground="#FFFFFEFE" Padding="0,20,20,20"/>
-                        <Image x:Name="coin" Height="24" Width="22" Source="/coin.png"  />
+                        <Image x:Name="coin" Height="24" Width="22"/>
                     </StackPanel>
                 </Border>
             </Border>

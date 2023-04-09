@@ -10,9 +10,6 @@
       Loaded="Page_Loaded">
 
     <Grid x:Name="background">
-        <Grid.Background>
-            <ImageBrush ImageSource="/villageEnding.png"/>
-        </Grid.Background>
         <Border Name="border" BorderBrush="#FF654321" BorderThickness="4px" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ScrollViewer HorizontalAlignment="Center" VerticalAlignment="Center" Name="scroll" Height="289" VerticalScrollBarVisibility="Hidden">
                 <Grid Name="displayBox" Height="Auto" Width="464" Background="Black" LayoutUpdated="displayBox_LayoutUpdated">

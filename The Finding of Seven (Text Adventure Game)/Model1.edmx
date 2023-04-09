@@ -4,51 +4,175 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="Model1TargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="PageTBLs" EntityType="Model1.Store.PageTBLs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SoundTBLs" EntityType="Model1.Store.SoundTBLs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ImageTBLs" EntityType="Model1.Store.ImageTBLs" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PageTBLSoundTBL" Association="Model1.Store.PageTBLSoundTBL">
+      <End Role="PageTBL" EntitySet="PageTBLs" />
+      <End Role="SoundTBL" EntitySet="SoundTBLs" />
+    </AssociationSet>
+    <AssociationSet Name="PageTBLImageTBL" Association="Model1.Store.PageTBLImageTBL">
+      <End Role="PageTBL" EntitySet="PageTBLs" />
+      <End Role="ImageTBL" EntitySet="ImageTBLs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PageTBLs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PageNumber" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SoundTBLs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SoundSrc" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SoundName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PageTBLId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ImageTBLs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImageSrc" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ImageName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PageTBLId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PageTBLSoundTBL">
+    <End Role="PageTBL" Type="Model1.Store.PageTBLs" Multiplicity="1" />
+    <End Role="SoundTBL" Type="Model1.Store.SoundTBLs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PageTBL">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SoundTBL">
+        <PropertyRef Name="PageTBLId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PageTBLImageTBL">
+    <End Role="PageTBL" Type="Model1.Store.PageTBLs" Multiplicity="1" />
+    <End Role="ImageTBL" Type="Model1.Store.ImageTBLs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PageTBL">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ImageTBL">
+        <PropertyRef Name="PageTBLId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="PageAssets" EntityType="Model1.PageAssets" />
-          <EntitySet Name="ImageAssets" EntityType="Model1.ImageAssets" />
-          <EntitySet Name="SoundAssets" EntityType="Model1.SoundAssets" />
+        <EntityContainer Name="Model1Container1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PageTBLs" EntityType="Model1.PageTBL" />
+          <EntitySet Name="SoundTBLs" EntityType="Model1.SoundTBL" />
+          <EntitySet Name="ImageTBLs" EntityType="Model1.ImageTBL" />
+          <AssociationSet Name="PageTBLSoundTBL" Association="Model1.PageTBLSoundTBL">
+            <End Role="PageTBL" EntitySet="PageTBLs" />
+            <End Role="SoundTBL" EntitySet="SoundTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="PageTBLImageTBL" Association="Model1.PageTBLImageTBL">
+            <End Role="PageTBL" EntitySet="PageTBLs" />
+            <End Role="ImageTBL" EntitySet="ImageTBLs" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="PageAssets">
+        <EntityType Name="PageTBL">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JsonFile" Type="String" Nullable="false" />
+          <Property Name="PageNumber" Type="String" Nullable="false" />
+          <NavigationProperty Name="SoundTBLs" Relationship="Model1.PageTBLSoundTBL" FromRole="PageTBL" ToRole="SoundTBL" />
+          <NavigationProperty Name="ImageTBLs" Relationship="Model1.PageTBLImageTBL" FromRole="PageTBL" ToRole="ImageTBL" />
         </EntityType>
-        <EntityType Name="ImageAssets">
+        <EntityType Name="SoundTBL">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="img1" Type="String" Nullable="false" />
+          <Property Name="SoundSrc" Type="String" Nullable="false" />
+          <Property Name="SoundName" Type="String" Nullable="false" />
+          <NavigationProperty Name="PageTBL" Relationship="Model1.PageTBLSoundTBL" FromRole="SoundTBL" ToRole="PageTBL" />
+          <Property Name="PageTBLId" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="SoundAssets">
+        <EntityType Name="ImageTBL">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SoundFile" Type="String" Nullable="false" />
+          <Property Name="ImageSrc" Type="String" Nullable="false" />
+          <Property Name="ImageName" Type="String" Nullable="false" />
+          <NavigationProperty Name="PageTBL" Relationship="Model1.PageTBLImageTBL" FromRole="ImageTBL" ToRole="PageTBL" />
+          <Property Name="PageTBLId" Type="Int32" Nullable="false" />
         </EntityType>
+        <Association Name="PageTBLSoundTBL">
+          <End Type="Model1.PageTBL" Role="PageTBL" Multiplicity="1" />
+          <End Type="Model1.SoundTBL" Role="SoundTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageTBL">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SoundTBL">
+              <PropertyRef Name="PageTBLId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PageTBLImageTBL">
+          <End Type="Model1.PageTBL" Role="PageTBL" Multiplicity="1" />
+          <End Type="Model1.ImageTBL" Role="ImageTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageTBL">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImageTBL">
+              <PropertyRef Name="PageTBLId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="Model1" />
-        <Alias Key="Target" Value="Model1.Store" />
-        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container1">
+    <EntitySetMapping Name="PageTBLs">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.PageTBL)">
+        <MappingFragment StoreEntitySet="PageTBLs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PageNumber" ColumnName="PageNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SoundTBLs">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.SoundTBL)">
+        <MappingFragment StoreEntitySet="SoundTBLs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SoundSrc" ColumnName="SoundSrc" />
+          <ScalarProperty Name="SoundName" ColumnName="SoundName" />
+          <ScalarProperty Name="PageTBLId" ColumnName="PageTBLId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageTBLs">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ImageTBL)">
+        <MappingFragment StoreEntitySet="ImageTBLs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="PageTBLId" ColumnName="PageTBLId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -62,6 +186,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

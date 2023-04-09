@@ -38,7 +38,21 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            
+            //querying database for assets
+            var backgroundImageQuery = from a in window.db.ImageTBLs
+                                  where a.ImageName == "road3"
+                                  select a.ImageSrc;
+            var trollImageQuery = from a in window.db.ImageTBLs
+                                  where a.ImageName == "troll3"
+                                  select a.ImageSrc;
+            var soundQuery = from a in window.db.SoundTBLs
+                             where a.SoundName == "bonetrousle"
+                             select a.SoundSrc;
+            string path = soundQuery.ToList()[0];
+            string backgroundImage = backgroundImageQuery.ToList()[0];
+            string trollImageSrc = trollImageQuery.ToList()[0];
+            background.Background = new ImageBrush(new BitmapImage(new Uri(backgroundImage, UriKind.Relative)));
+            trollImage.Source = new BitmapImage(new Uri(trollImageSrc));
             //collapsing btns
             btn1.Visibility = Visibility.Collapsed;
             btn2.Visibility = Visibility.Collapsed;
@@ -47,12 +61,10 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             submitBtn.Opacity = 0;
             riddle.Visibility = Visibility.Collapsed;
             submitBtn.Visibility = Visibility.Collapsed;
-
             //setting scene
             background.Opacity = 0;
             displayBox.Opacity = 0;
             border.Opacity = 0;
-            string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 24 Bonetrousle.mp3";
             window.player.Source = new Uri(path, UriKind.Relative);
             while (background.Opacity < 1)
             {

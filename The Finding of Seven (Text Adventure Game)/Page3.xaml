@@ -10,10 +10,6 @@
       Loaded="Page_Loaded">
 
     <Grid Name="background">
-        <Grid.Background>
-            <ImageBrush ImageSource="/merchantBackground.png"/>
-        </Grid.Background>
-        
         <Label x:Name="InventoryLabel" Content="Inventory" HorizontalAlignment="Left" Margin="895,123,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30" RenderTransformOrigin="0.429,1.088"/>
         <ListBox x:Name="shopItemsList" Margin="10,195,760,273" Background="{x:Null}" Foreground="White" FontSize="18"/>
         <Label x:Name="shopLabel" Content="Shop Items" HorizontalAlignment="Left" Margin="172,123,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30"/>

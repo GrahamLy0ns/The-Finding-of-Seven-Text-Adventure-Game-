@@ -32,11 +32,20 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         {
             sans.Visibility = Visibility.Collapsed;
             MainWindow window = (MainWindow)Window.GetWindow(this);
+            //getting assets from the db
+            var imageQuery = from a in window.db.ImageTBLs
+                             where a.ImageName == "villageEnding"
+                             select a.ImageSrc;
+            var soundQuery = from a in window.db.SoundTBLs
+                             where a.SoundName == "megalovania"
+                             select a.SoundSrc;
+            string path = soundQuery.ToList()[0];
+            string imageSrc = imageQuery.ToList()[0];
+            background.Background = new ImageBrush(new BitmapImage(new Uri(imageSrc, UriKind.Relative)));
             //setting scene
             background.Opacity = 0;
             displayBox.Opacity = 0;
             border.Opacity = 0;
-            string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 100 MEGALOVANIA.mp3";
             window.player.Source = new Uri(path, UriKind.Relative);
             while (background.Opacity < 1)
             {

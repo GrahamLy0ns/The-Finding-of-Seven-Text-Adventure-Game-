@@ -10,9 +10,6 @@
       Loaded="Page_Loaded">
 
     <Grid x:Name="background" RenderTransformOrigin="0.499,0.637">
-        <Grid.Background>
-            <ImageBrush ImageSource="/fightBackground.png"/>
-        </Grid.Background>
         <Border Background="#40513B" BorderThickness="2" CornerRadius="10" HorizontalAlignment="Center" Margin="0,222,0,355">
             <Border Background="#40513B" BorderThickness="2" CornerRadius="10" >
                 <StackPanel Orientation="Horizontal" Background="#40513B" Margin="20, 0, 0, 0" HorizontalAlignment="Center">

@@ -40,6 +40,15 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
+            var imageQuery = from a in window.db.ImageTBLs
+                             where a.ImageName == "burningVillage"
+                             select a.ImageSrc;
+            var soundQuery = from a in window.db.SoundTBLs
+                             where a.SoundName == "anEnding"
+                             select a.SoundSrc;
+            string path = soundQuery.ToList()[0];
+            string imageSrc = imageQuery.ToList()[0];
+            background.Background = new ImageBrush(new BitmapImage(new Uri(imageSrc, UriKind.Relative)));
             //collapsing btns
             btn1.Visibility = Visibility.Collapsed;
             btn2.Visibility = Visibility.Collapsed;
@@ -48,7 +57,6 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             background.Opacity = 0;
             displayBox.Opacity = 0;
             border.Opacity = 0;
-            string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 81 An Ending.mp3";
             window.player.Source = new Uri(path, UriKind.Relative);
             while (background.Opacity < 1)
             {

@@ -35,6 +35,16 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
+            //getting assets from the db
+            var imageQuery = from a in window.db.ImageTBLs
+                             where a.ImageName == "fightBackground"
+                             select a.ImageSrc;
+            var soundQuery = from a in window.db.SoundTBLs
+                             where a.SoundName == "spearOfJustice"
+                             select a.SoundSrc;
+            string path = soundQuery.ToList()[0];
+            string imageSrc = imageQuery.ToList()[0];
+            background.Background = new ImageBrush(new BitmapImage(new Uri(imageSrc, UriKind.Relative)));
             window.fightEncountered = true;
             window.fightEncounteredCount++;
             background.Opacity = 0;
@@ -50,7 +60,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 EnemyHeart8.Visibility = Visibility.Collapsed;
                 EnemyHeart7.Visibility = Visibility.Collapsed;
             }
-            string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 46 Spear of Justice.mp3";
+            //string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 46 Spear of Justice.mp3";
             window.player.Source = new Uri(path, UriKind.Relative);
             while (background.Opacity < 1)
             {
@@ -97,6 +107,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 }
             }
             window.inventoryListBox.Items.Remove("Impetum Potion");
+            window.inventoryItems.Remove("Impetum Potion (20 Gold)");
             await Task.Delay(40);
         }
 

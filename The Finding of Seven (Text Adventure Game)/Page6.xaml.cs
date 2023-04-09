@@ -33,7 +33,11 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Window.GetWindow(this);
-            string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 11 Determination.mp3";
+            //getting assets from database
+            var soundQuery = from a in window.db.SoundTBLs
+                             where a.SoundName == "determination"
+                             select a.SoundSrc;
+            string path = soundQuery.ToList()[0];
             window.player.Source = new Uri(path, UriKind.RelativeOrAbsolute);
             background.Opacity = 0;
             text1.Opacity = 0;

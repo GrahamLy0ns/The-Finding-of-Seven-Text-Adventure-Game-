@@ -4,10 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e1ae6c8a37154f128475f7c2517782e5" Name="Diagram1" >
-        <EntityTypeShape EntityType="Model1.PageAssets" Width="1.5" PointX="4.375" PointY="0.75" />
-        <EntityTypeShape EntityType="Model1.ImageAssets" Width="1.5" PointX="7.375" PointY="0.5" />
-        <EntityTypeShape EntityType="Model1.SoundAssets" Width="1.5" PointX="6.75" PointY="2.5" />
+      <Diagram DiagramId="1e7b40743cc840f2aee2b3c7668b31c1" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model1.PageTBL" Width="1.5" PointX="5" PointY="1.875" />
+        <EntityTypeShape EntityType="Model1.SoundTBL" Width="1.5" PointX="7.5" PointY="1.875" />
+        <EntityTypeShape EntityType="Model1.ImageTBL" Width="1.5" PointX="5" PointY="4.25" />
+        <AssociationConnector Association="Model1.PageTBLSoundTBL" />
+        <AssociationConnector Association="Model1.PageTBLImageTBL" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

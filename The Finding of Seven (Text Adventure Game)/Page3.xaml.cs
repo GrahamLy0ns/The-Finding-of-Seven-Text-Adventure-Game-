@@ -29,7 +29,19 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+
             MainWindow window = (MainWindow)Window.GetWindow(this);
+            window.GetGold(110, "test");
+            //getting asset src from database
+            var backgroundImageQuery = from a in window.db.ImageTBLs
+                                  where a.ImageName == "merchantBackground"
+                                  select a.ImageSrc;
+            var soundQuery = from a in window.db.SoundTBLs
+                             where a.SoundName == "sans"
+                             select a.SoundSrc;
+            string path = soundQuery.ToList()[0];
+            string backgroundImageSrc = backgroundImageQuery.ToList()[0];
+            background.Background = new ImageBrush(new BitmapImage(new Uri(backgroundImageSrc, UriKind.Relative)));
             //adding items to the shop List
             foreach (string shopItem in window.shopItems)
             {
@@ -46,7 +58,7 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
             exitShopBtn.Visibility = Visibility.Hidden;
             //setting scene
             background.Opacity = 0;
-            string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 15 sans..mp3";
+            //string path = @"Resources\music\toby fox - UNDERTALE Soundtrack - 15 sans..mp3";
             window.player.Source = new Uri(path, UriKind.Relative);
             while (background.Opacity < 1)
             {
@@ -185,48 +197,15 @@ namespace The_Finding_of_Seven__Text_Adventure_Game_
                 background.Opacity -= 0.01;
                 await Task.Delay(40);
             }
-            //checking items
-            if (inventoryItems.Items == null)
+            foreach (var item in window.inventoryItems)
             {
-                //do nothing
-            }
-            else
-            {
-                //adding purchased shop items to inventory
-                foreach (var item in inventoryItems.Items)
+                if (item.ToString().Contains("Wooden Shield") && window.inventoryListBox.Items.Contains("Wooden Shield") == false)
                 {
-                    if (item.ToString().Contains("Red Gem") && window.inventoryListBox.Items.Contains("Red Gem") == false)
-                    {
-                        window.inventoryListBox.Items.Add("Red Gem");
-                    }
-                    else if (item.ToString().Contains("Steel Sword") && window.inventoryListBox.Items.Contains("Steel Sword") == false)
-                    {
-                        window.inventoryListBox.Items.Add("Steel Sword");
-                        window.AttackTextBlock.Visibility = Visibility.Visible;
-                    }
-                    else if (item.ToString().Contains("Healing Potion") && window.inventoryListBox.Items.Contains("Healing Potion") == false)
-                    {
-                        window.inventoryListBox.Items.Add("Healing Potion");
-                    }
-                    else if (item.ToString().Contains("Impetum Potion") && window.inventoryListBox.Items.Contains("Impetum Potion") == false)
-                    {
-                        window.inventoryListBox.Items.Add("Impetum Potion");
-                    }
-                    else if (item.ToString().Contains("Wooden Shield") && window.inventoryListBox.Items.Contains("Wooden Shield") == false)
-                    {
-                        window.inventoryListBox.Items.Add("Wooden Shield");
-                        window.DefenseTextBlock.Visibility = Visibility.Visible;
-                        window.shield1.Visibility = Visibility.Visible;
-                        window.shield2.Visibility = Visibility.Visible;
-                        window.shield3.Visibility = Visibility.Visible;
-                    }
+                    window.DefenseTextBlock.Visibility = Visibility.Visible;
+                    window.shield1.Visibility = Visibility.Visible;
+                    window.shield2.Visibility = Visibility.Visible;
+                    window.shield3.Visibility = Visibility.Visible;
                 }
-            }
-            //refresh inventory 
-            window.inventoryListBox.Items.Clear();
-            foreach (string item in window.inventoryItems)
-            {
-                window.inventoryListBox.Items.Add(item);
             }
             //navigation 
             window.MainFrame.Navigate(new Uri(window.returnPageFromMerchantShop, UriKind.Relative));
